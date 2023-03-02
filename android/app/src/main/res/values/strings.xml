@@ -1,3 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="facebook_app_id">683846136758139</string>
+    <string name="fb_login_protocol_scheme">fb683846136758139</string>
+    <string name="facebook_client_token">12f3554434a32a5d516b78b7edf42e39</string>
+    <string name="app_name">inst-clone-riverpod</string>
+
+
+
 </resources>
