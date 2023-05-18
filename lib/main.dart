@@ -15,11 +15,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Insta Clone',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(brightness: Brightness.dark, primarySwatch: Colors.blue),
+      themeMode: ThemeMode.dark,
+      darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.blueGrey,
+          indicatorColor: Colors.blueGrey),
       home: const Scaffold(),
     );
   }
