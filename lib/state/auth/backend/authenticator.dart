@@ -28,7 +28,7 @@ class Authenticator {
     await facebookAuth.logOut();
   }
 
-  Future<AuthResult> loginWithfacebook() async {
+  Future<AuthResult> loginWithFacebook() async {
     final loginResult = await facebookAuth.login();
 
     final tokenResult = loginResult.accessToken?.token;

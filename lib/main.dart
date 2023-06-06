@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:insta_clon_rivrpo/firebase_options.dart';
+import 'package:insta_clon_rivrpo/state/auth/backend/authenticator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +24,30 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           primarySwatch: Colors.blueGrey,
           indicatorColor: Colors.blueGrey),
-      home: const Scaffold(),
+      home: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          TextButton(
+            onPressed: () {
+              Authenticator().logout();
+            },
+            child: const Text("Log Out"),
+          ),
+          TextButton(
+            onPressed: () async {
+              final result = await Authenticator().loginWithGoogle();
+              print(result.toString());
+            },
+            child: const Text("Sign In WIth google"),
+          ),
+          TextButton(
+            onPressed: () async {
+              final result = await Authenticator().loginWithFacebook();
+              print(result.toString());
+            },
+            child: const Text("Sign In WIth Facebook"),
+          ),
+        ]),
+      ),
     );
   }
 }
