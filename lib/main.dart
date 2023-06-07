@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:insta_clon_rivrpo/firebase_options.dart';
 import 'package:insta_clon_rivrpo/state/auth/backend/authenticator.dart';
+import 'package:insta_clon_rivrpo/state/auth/providers/is_logged_in_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,16 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           primarySwatch: Colors.blueGrey,
           indicatorColor: Colors.blueGrey),
-      home: const LoginView(),
+      home: Consumer(
+        builder: (context, ref, child) {
+          final isLoggedIn = ref.watch(isLoggedInProvider);
+          if (isLoggedIn) {
+            return const LoginView();
+          } else {
+            return const MainView();
+          }
+        },
+      ),
     );
   }
 }
@@ -59,5 +69,17 @@ class LoginView extends StatelessWidget {
         ),
       ]),
     );
+  }
+}
+
+class MainView extends StatelessWidget {
+  const MainView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+        body: Center(
+      child: Text("Main View"),
+    ));
   }
 }
