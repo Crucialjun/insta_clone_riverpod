@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:insta_clon_rivrpo/firebase_options.dart';
 import 'package:insta_clon_rivrpo/state/auth/backend/authenticator.dart';
-import 'package:insta_clon_rivrpo/state/auth/providers/is_logged_in_provider.dart';
+import 'package:insta_clon_rivrpo/state/auth/models/auth_results.dart';
+import 'package:insta_clon_rivrpo/state/auth/providers/auth_state_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
           indicatorColor: Colors.blueGrey),
       home: Consumer(
         builder: (context, ref, child) {
-          final isLoggedIn = ref.watch(isLoggedInProvider);
+          final isLoggedIn =
+              ref.watch(authStateProvider).result == AuthResult.success;
           if (isLoggedIn) {
             return const LoginView();
           } else {
@@ -77,9 +79,18 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        body: Center(
-      child: Text("Main View"),
-    ));
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Main View"),
+        ),
+        body: Center(child: Consumer(
+          builder: (BuildContext context, WidgetRef ref, Widget? child) {
+            return TextButton(
+                onPressed: () async {
+                  await ref.read(authStateProvider.notifier).logOut();
+                },
+                child: const Text("Log Out"));
+          },
+        )));
   }
 }
