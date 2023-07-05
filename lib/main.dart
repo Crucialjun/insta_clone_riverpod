@@ -4,6 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:insta_clon_rivrpo/firebase_options.dart';
 import 'package:insta_clon_rivrpo/state/auth/models/auth_results.dart';
 import 'package:insta_clon_rivrpo/state/auth/providers/auth_state_provider.dart';
+import 'package:insta_clon_rivrpo/state/providers/is_loading_provider.dart';
+import 'package:insta_clon_rivrpo/state/views/components/loading/loading_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,8 +30,16 @@ class MyApp extends StatelessWidget {
           indicatorColor: Colors.blueGrey),
       home: Consumer(
         builder: (context, ref, child) {
+          ref.listen<bool>(isLoadingProvider, (previous, next) {
+            if (next) {
+              LoadingScreen().show(context: context);
+            } else {
+              LoadingScreen().hide();
+            }
+          });
           final isLoggedIn =
               ref.watch(authStateProvider).result == AuthResult.success;
+
           if (isLoggedIn) {
             return const LoginView();
           } else {
