@@ -41,6 +41,7 @@ dependencies:
   hooks_riverpod: ^2.3.6
   flutter_svg: ^2.0.6
   cloud_firestore: ^4.8.0
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:
